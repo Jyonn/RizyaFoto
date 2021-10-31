@@ -1,0 +1,17 @@
+.homepage-container {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  height: calc(100% - 2 * 20px);
+  width: calc(100% - 2 * 20px);
+}
+.homepage-container .homepage-inner-container {
+  position: relative;
+}
+.homepage-container .homepage-inner-container .pinned-foto {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transition: opacity 0.5s ease-in 0.2s, size 0.5s ease-in 0.2s;
+}
+/*# sourceMappingURL=homepage.component.css.map */

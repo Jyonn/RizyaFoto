@@ -1,0 +1,14 @@
+<div class="homepage-container">
+  <div class="homepage-inner-container full"  #homeContainer>
+    <div class="pinned-foto img-fit" (click)="displayNextFoto(true)"
+         *ngFor="let foto of fotos; let index = index"
+         [ngStyle]="{
+            'background-image': foto.backgroundUrl,
+            'background-color': foto.color,
+            'width': foto.widthPx,
+            'height': foto.heightPx,
+            'opacity': getOpacity(index)
+         }">
+    </div>
+  </div>
+</div>

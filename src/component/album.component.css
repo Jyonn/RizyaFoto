@@ -1,0 +1,20 @@
+.album-container {
+  position: relative;
+  padding: 20px;
+  height: calc(100% - 2 * 20px);
+  width: calc(100% - 2 * 20px);
+}
+.album-container .album-inner-container {
+  position: relative;
+  overflow-y: scroll;
+}
+.album-container .album-inner-container .foto {
+  display: block;
+  width: 100%;
+  margin: 0 0 20px auto;
+  transition: 0.5s;
+}
+.album-container .album-inner-container .foto:last-child {
+  margin-bottom: 0;
+}
+/*# sourceMappingURL=album.component.css.map */

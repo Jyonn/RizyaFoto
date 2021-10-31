@@ -1,0 +1,13 @@
+<div class="album-container">
+  <div class="album-inner-container full" #albumContainer>
+    <div class="foto img-fit"
+         *ngFor="let foto of fotos"
+         [ngStyle]="{
+            'background-image': foto.backgroundUrl,
+            'background-color': foto.color,
+            'width': foto.widthPx,
+            'height': foto.heightPx
+         }">
+    </div>
+  </div>
+</div>
