@@ -1,6 +1,6 @@
 <div class="container full">
   <div class="header" [ngClass]="menu.opening ? 'mask' : ''">
-    <div class="title" (click)="navigateHomePage()">Jyonn Lyeu</div>
+    <div class="title" (click)="navigateHomePage()">Lover Gallery</div>
     <div class="menu" (click)="menu.toggleMenu()">{{menu.menuText}}</div>
     <div class="album-list">
       <div class="album" *ngFor="let album of this.albums" (click)="navigate(album.name)">{{album.name}}</div>

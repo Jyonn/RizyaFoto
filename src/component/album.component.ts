@@ -41,9 +41,15 @@ export class AlbumComponent implements OnInit, OnDestroy {
 
   fitFotoSize() {
     let e = this.container.nativeElement as HTMLElement
-    let width = e.offsetWidth, height = e.offsetHeight
+    // let width = e.offsetWidth, height = e.offsetHeight
+    let size = e.offsetWidth
 
-    this.fotos.forEach(foto => foto.setFeasibleAlbumSize(width > height ? height : width))
+    let baseSize = 240, baseMargin = 20
+    let fotoPerLine = Math.max(Math.floor(size / (baseSize + baseMargin)), 1)
+
+    size = Math.floor(size / fotoPerLine) - baseMargin
+
+    this.fotos.forEach(foto => foto.setFeasibleAlbumSize(size))
   }
 
   ngOnDestroy() {

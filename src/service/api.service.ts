@@ -13,7 +13,7 @@ export class ApiService {
   ) {
     this.homepageGetter = new Subscriber()
     this.albumGetter = new Subscriber()
-    this.space = 'default'
+    this.space = 'rizya'
   }
 
   getHomePage() {
