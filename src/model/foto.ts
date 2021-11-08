@@ -1,4 +1,9 @@
+import {Position} from "./position";
+
 export class Foto {
+  static TYPE_ROTATE = 0
+  static TYPE_SQUARE = 1
+
   sources: {
     rotate: string
     origin: string
@@ -14,12 +19,13 @@ export class Foto {
 
   widthPx: string
   heightPx: string
-  type: string
 
-  loaded: boolean = false
-  active: boolean = false
+  rotateLoaded: boolean = false
+  squareLoaded: boolean = false
 
-  constructor({sources, width, height, foto_id, orientation, album}: Foto, type: string) {
+  position?: Position
+
+  constructor({sources, width, height, foto_id, orientation, album}: Foto) {
     this.sources = sources
     this.width = width
     this.height = height
@@ -29,18 +35,24 @@ export class Foto {
 
     this.widthPx = '0px'
     this.heightPx = '0px'
-    this.type = type
 
-    this.preLoad()
+    // this.preLoad()
   }
 
-  get defaultUrl() {
-    return this.sources.rotate;
+  update({sources, width, height, foto_id, orientation, album}: Foto) {
+    this.album = album
   }
 
-  get backgroundUrl() {
-    if (this.loaded) {
-      return `url('${this.defaultUrl}')`
+  get rotateUrl() {
+    if (this.rotateLoaded) {
+      return `url('${this.sources.rotate}')`
+    }
+    return ''
+  }
+
+  get squareUrl() {
+    if (this.squareLoaded) {
+      return `url('${this.sources.square}')`
     }
     return ''
   }
@@ -49,7 +61,7 @@ export class Foto {
     return this.sources.color.replace('0x', '#')
   }
 
-  setFeasiblePinnedSize(maxWidth: number, maxHeight: number) {
+  setFeasiblePinnedSize(maxWidth: number, maxHeight: number, exportOnly: boolean): {width: number, height: number} | null {
     let wRatio = maxWidth / this.width
     let hRatio = maxHeight / this.height
     let width, height
@@ -62,20 +74,37 @@ export class Foto {
       width = maxWidth
     }
 
+    if (exportOnly) {
+      return {width, height}
+    }
+
     this.widthPx = width + 'px'
     this.heightPx = height + 'px'
+    return null
   }
 
   setFeasibleAlbumSize(size: number) {
     this.widthPx = this.heightPx = size + 'px'
   }
 
-  preLoad() {
-    const image = new Image();
+  async preLoad(type: number) {
+    const image = new Image()
 
-    image.src = this.defaultUrl;
-    image.onload = () => {
-      this.loaded = true
-    };
+    if (type == Foto.TYPE_ROTATE) {
+      image.src = this.sources.rotate
+    } else {
+      image.src = this.sources.square
+    }
+
+    return new Promise(resolve => {
+      image.onload = () => {
+        if (type === Foto.TYPE_ROTATE) {
+          this.rotateLoaded = true
+        } else {
+          this.squareLoaded = true
+        }
+        resolve(null)
+      };
+    })
   }
 }

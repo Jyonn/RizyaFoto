@@ -9,6 +9,7 @@
   overflow-y: scroll;
   display: flex;
   flex-wrap: wrap;
+  transition: 0.5s;
 }
 .album-container .album-inner-container .foto {
   display: block;

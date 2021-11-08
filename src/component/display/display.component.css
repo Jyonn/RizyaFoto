@@ -1,0 +1,21 @@
+.full {
+  position: fixed;
+}
+.full .mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: 0.5s;
+  background-color: black;
+}
+.full .foto-box {
+  position: absolute;
+  transition: 0.5s;
+}
+.full.inactive {
+  z-index: -1;
+}
+.full.active {
+  z-index: 1;
+}
+/*# sourceMappingURL=display.component.css.map */

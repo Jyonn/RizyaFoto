@@ -1,6 +1,29 @@
+@day-text: #FFFFFF - #EEEDEA;
+@day-bg: #EEEDEA;
+@night-text: #EEEDEA;
+@night-bg: #FFFFFF - #EEEDEA;
+
+.night.container {
+  background: @night-bg;
+
+  .header {
+    .title {
+      color: @night-text;
+    }
+    .album-list {
+      .album {
+        color: @night-text;
+      }
+    }
+    .copyright {
+      color: @night-text;
+    }
+  }
+}
+
 .container {
   position: fixed;
-  background: #EEEDEA;
+  background: @day-bg;
   display: relative;
 
   @header-padding: 40px;
@@ -21,7 +44,7 @@
 
     .title {
       font-size: 20px;
-      color: black;
+      color: @day-text;
       cursor: pointer;
     }
 
@@ -30,7 +53,7 @@
 
       .album {
         font-size: 12px;
-        color: black;
+        color: @day-text;
         margin-bottom: 5px;
         cursor: pointer;
       }
@@ -40,7 +63,7 @@
       position: absolute;
       bottom: calc(~'@{header-padding} / 2');
       font-size: 12px;
-      color: black;
+      color: @day-text;
     }
   }
 
@@ -89,4 +112,9 @@
       height: calc(~'100% - @{foto-top}');
     }
   }
+}
+
+.display.container {
+  background: @night-bg;
+  z-index: -1;
 }

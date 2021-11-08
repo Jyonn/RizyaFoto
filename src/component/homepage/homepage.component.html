@@ -3,7 +3,7 @@
     <div class="pinned-foto img-fit" (click)="displayNextFoto(true)"
          *ngFor="let foto of fotos; let index = index"
          [ngStyle]="{
-            'background-image': foto.backgroundUrl,
+            'background-image': foto.rotateUrl,
             'background-color': foto.color,
             'width': foto.widthPx,
             'height': foto.heightPx,

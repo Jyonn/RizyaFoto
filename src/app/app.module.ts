@@ -7,15 +7,18 @@ import {RequestService} from "../service/utils/request.service";
 import {OneWorkerService} from "../service/utils/one-worker.service";
 import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
-import {HomePageComponent} from "../component/homepage.component";
-import {AlbumComponent} from "../component/album.component";
+import {HomePageComponent} from "../component/homepage/homepage.component";
+import {AlbumComponent} from "../component/album/album.component";
 import {MenuService} from "../service/menu.service";
+import {FotoDepotService} from "../service/foto-depot.service";
+import {DisplayComponent} from "../component/display/display.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     AlbumComponent,
+    DisplayComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +30,7 @@ import {MenuService} from "../service/menu.service";
     RequestService,
     OneWorkerService,
     MenuService,
+    FotoDepotService,
   ],
   bootstrap: [AppComponent]
 })

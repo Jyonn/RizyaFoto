@@ -2,8 +2,9 @@
   <div class="album-inner-container full" #albumContainer>
     <div class="foto img-fit"
          *ngFor="let foto of fotos"
+         (click)="displayFoto($event, foto)"
          [ngStyle]="{
-            'background-image': foto.backgroundUrl,
+            'background-image': foto.squareUrl,
             'background-color': foto.color,
             'width': foto.widthPx,
             'height': foto.heightPx

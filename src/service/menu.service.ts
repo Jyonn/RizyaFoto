@@ -4,10 +4,16 @@ import {Injectable} from "@angular/core";
 export class MenuService {
   menuText: string
   opening: boolean
+  displayComponent: any
 
   constructor() {
     this.opening = false
     this.menuText = 'Menu'
+    this.displayComponent = null
+  }
+
+  setDisplayComponent(component: any) {
+    this.displayComponent = component
   }
 
   closeMenu() {

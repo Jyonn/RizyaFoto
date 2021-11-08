@@ -1,7 +1,8 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from "@angular/core";
-import {Foto} from "../model/foto";
-import {ApiService} from "../service/api.service";
+import {Foto} from "../../model/foto";
+import {ApiService} from "../../service/api.service";
 import {fromEvent, Subscription} from "rxjs";
+import {FotoDepotService} from "../../service/foto-depot.service";
 
 @Component({
   styleUrls: ['homepage.component.less'],
@@ -18,6 +19,7 @@ export class HomePageComponent implements OnDestroy, AfterViewInit {
 
   constructor(
     private api: ApiService,
+    private fotoDepot: FotoDepotService,
   ) {
     this.fotos = []
     this.lastAppearTime = new Date().getTime()
@@ -31,8 +33,9 @@ export class HomePageComponent implements OnDestroy, AfterViewInit {
 
   init(resp: any) {
     for (let foto of resp.fotos) {
-      this.fotos.push(new Foto(foto, 'rotate'))
+      this.fotos.push(this.fotoDepot.getFoto(foto))
     }
+    this.fotoDepot.preLoad(this.fotos, this.fotoDepot.preLoadRotateWorker.bind(this.fotoDepot))
 
     setInterval(() => {
       this.displayNextFoto()
@@ -45,7 +48,7 @@ export class HomePageComponent implements OnDestroy, AfterViewInit {
     let e = this.container.nativeElement as HTMLElement
     let width = e.offsetWidth, height = e.offsetHeight
 
-    this.fotos.forEach(foto => foto.setFeasiblePinnedSize(width, height))
+    this.fotos.forEach(foto => foto.setFeasiblePinnedSize(width, height, false))
   }
 
   ngOnDestroy(): void {
@@ -65,7 +68,7 @@ export class HomePageComponent implements OnDestroy, AfterViewInit {
     }
     if (currentTime - this.lastAppearTime >= 5000 || compulsory) {
       let nextIndex = (this.index + 1) % this.fotos.length
-      if (this.fotos[nextIndex].loaded || compulsory) {
+      if (this.fotos[nextIndex].rotateLoaded || compulsory) {
         this.index = nextIndex
         this.lastAppearTime = currentTime
       }
