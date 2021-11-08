@@ -14,8 +14,6 @@ export class DisplayComponent {
 
   mask: boolean
 
-
-
   top?: string
   left?: string
   width?: string
@@ -50,13 +48,17 @@ export class DisplayComponent {
     this.height = this.foto!.heightPx
   }
 
-  display(foto: Foto) {
+  display(foto: Foto, resizeUpdate: boolean) {
+    if (resizeUpdate) {
+      this.displayHugeFotoSize()
+      return
+    }
     this.foto = foto
     this.displayNormalFotoSize()
     setTimeout(() => {
       this.displayHugeFotoSize()
       this.mask = true
-    }, 500)
+    }, 200)
   }
 
   hide() {

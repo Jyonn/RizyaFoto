@@ -22,6 +22,8 @@ export class AlbumComponent implements OnInit, OnDestroy {
   displayedFoto?: Foto
   displayedElement?: any
 
+  activateRotatePreLoad: boolean
+
   constructor(
     private activateRoute: ActivatedRoute,
     private api: ApiService,
@@ -29,6 +31,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
     private menu: MenuService,
   ) {
     this.fotos = []
+    this.activateRotatePreLoad = false
 
     this._resizeSubscription = fromEvent(window, 'resize')
       .subscribe(this.fitFotoSize.bind(this));
@@ -78,11 +81,11 @@ export class AlbumComponent implements OnInit, OnDestroy {
     }
   }
 
-  async scrollContainer(container: Element, current: number, target: number, fast: boolean) {
+  async scrollContainer(container: Element, current: number, target: number, resizeUpdate: boolean) {
     let requiredMove
     let scrollPerStep
 
-    if (fast) {
+    if (resizeUpdate) {
       return new Promise(resolve => {
         container.scrollTo(0, target)
         return resolve(null)
@@ -105,7 +108,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
     })
   }
 
-  _displayFoto(fast: boolean) {
+  _displayFoto(resizeUpdate: boolean) {
     let element = this.displayedElement
     let foto = this.displayedFoto
 
@@ -124,16 +127,21 @@ export class AlbumComponent implements OnInit, OnDestroy {
       let component = this.menu.displayComponent as DisplayComponent
 
       foto.preLoad(Foto.TYPE_ROTATE).then(_ => {
-        this.scrollContainer(container, container.scrollTop, elementTop, fast)
+        this.scrollContainer(container, container.scrollTop, elementTop, resizeUpdate)
           .then(() => {
             foto!.position = new Position(top - container.scrollTop + elementTop, left)
-            component.display(foto!)
+            component.display(foto!, resizeUpdate)
           })
       })
     }
   }
 
   displayFoto($event: Event, foto: Foto) {
+    if (!this.activateRotatePreLoad) {
+      this.activateRotatePreLoad = true
+      this.fotoDepot.preLoad(this.fotos, this.fotoDepot.preLoadRotateWorker)
+    }
+
     this.displayedElement = $event.currentTarget as any
     this.displayedFoto = foto
 

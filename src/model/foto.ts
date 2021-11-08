@@ -20,7 +20,9 @@ export class Foto {
   widthPx: string
   heightPx: string
 
+  rotateLoading: boolean = false
   rotateLoaded: boolean = false
+  squareLoading: boolean = false
   squareLoaded: boolean = false
 
   position?: Position
@@ -36,6 +38,7 @@ export class Foto {
     this.widthPx = '0px'
     this.heightPx = '0px'
 
+    this.sources.origin = ''
     // this.preLoad()
   }
 
@@ -91,9 +94,17 @@ export class Foto {
     const image = new Image()
 
     if (type == Foto.TYPE_ROTATE) {
+      if (this.rotateLoaded || this.rotateLoading) {
+        return new Promise(resolve => {resolve(null)})
+      }
       image.src = this.sources.rotate
+      this.rotateLoading = true
     } else {
+      if (this.squareLoaded || this.squareLoading) {
+        return new Promise(resolve => {resolve(null)})
+      }
       image.src = this.sources.square
+      this.squareLoading = true
     }
 
     return new Promise(resolve => {
