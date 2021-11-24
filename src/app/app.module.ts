@@ -12,6 +12,9 @@ import {AlbumComponent} from "../component/album/album.component";
 import {MenuService} from "../service/menu.service";
 import {FotoDepotService} from "../service/foto-depot.service";
 import {DisplayComponent} from "../component/display/display.component";
+import {FotoService} from "../service/foto.service";
+import {FotoSizePipe} from "../pipe/foto-size.pipe";
+import {FotoTimePipe} from "../pipe/foto-time.pipe";
 
 @NgModule({
   declarations: [
@@ -19,6 +22,8 @@ import {DisplayComponent} from "../component/display/display.component";
     HomePageComponent,
     AlbumComponent,
     DisplayComponent,
+    FotoSizePipe,
+    FotoTimePipe,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +36,7 @@ import {DisplayComponent} from "../component/display/display.component";
     OneWorkerService,
     MenuService,
     FotoDepotService,
+    FotoService,
   ],
   bootstrap: [AppComponent]
 })

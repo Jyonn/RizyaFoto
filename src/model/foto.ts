@@ -1,10 +1,13 @@
 import {Position} from "./position";
+import {Exif} from "./exif";
+import {Loader} from "../interface/loader";
 
 export class Foto {
   static TYPE_ROTATE = 0
   static TYPE_SQUARE = 1
 
   sources: {
+    exif: string
     rotate: string
     origin: string
     square: string
@@ -26,6 +29,7 @@ export class Foto {
   squareLoaded: boolean = false
 
   position?: Position
+  exif: Loader<Exif>
 
   constructor({sources, width, height, foto_id, orientation, album}: Foto) {
     this.sources = sources
@@ -39,6 +43,7 @@ export class Foto {
     this.heightPx = '0px'
 
     this.sources.origin = ''
+    this.exif = {loaded: false}
     // this.preLoad()
   }
 
@@ -90,17 +95,17 @@ export class Foto {
     this.widthPx = this.heightPx = size + 'px'
   }
 
-  async preLoad(type: number) {
+  async preLoad(type: number, force: boolean) {
     const image = new Image()
 
     if (type == Foto.TYPE_ROTATE) {
-      if (this.rotateLoaded || this.rotateLoading) {
+      if (this.rotateLoaded || (this.rotateLoading && !force)) {
         return new Promise(resolve => {resolve(null)})
       }
       image.src = this.sources.rotate
       this.rotateLoading = true
     } else {
-      if (this.squareLoaded || this.squareLoading) {
+      if (this.squareLoaded || (this.squareLoading && !force)) {
         return new Promise(resolve => {resolve(null)})
       }
       image.src = this.sources.square

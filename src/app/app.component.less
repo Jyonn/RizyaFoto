@@ -1,7 +1,4 @@
-@day-text: #FFFFFF - #EEEDEA;
-@day-bg: #EEEDEA;
-@night-text: #EEEDEA;
-@night-bg: #FFFFFF - #EEEDEA;
+@import "../color";
 
 .night.container {
   background: @night-bg;
@@ -29,7 +26,7 @@
   @header-padding: 40px;
   .header {
     display: inline-block;
-    width: 30%;
+    width: calc(~'30% - @{header-padding} * 2');
     height: calc(~'100% - @{header-padding} * 2');
     padding: @header-padding;
     position: absolute;
@@ -50,6 +47,7 @@
 
     .album-list {
       margin-top: 30px;
+      height: inherit;
 
       .album {
         font-size: 12px;
@@ -80,7 +78,7 @@
       width: 100%;
 
       &.mask {
-        background: #EEEDEA;
+        background: @day-bg;
         z-index: 1;
 
         .album-list, .copyright {

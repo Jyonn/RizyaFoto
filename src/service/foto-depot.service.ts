@@ -35,23 +35,4 @@ export class FotoDepotService {
     }
     return foto
   }
-
-  async preLoadSquareWorker(foto: Foto): Promise<any> {
-    if (foto.squareLoaded) {
-      return
-    }
-    await foto.preLoad(Foto.TYPE_SQUARE)
-  }
-
-  async preLoadRotateWorker(foto: Foto): Promise<any> {
-    if (foto.rotateLoaded) {
-      return
-    }
-    await foto.preLoad(Foto.TYPE_ROTATE)
-  }
-
-  preLoad(fotos: Array<Foto>, handler: CallableFunction) {
-    let parallel = new Parallel(fotos, handler, 6)
-    parallel.start()
-  }
 }

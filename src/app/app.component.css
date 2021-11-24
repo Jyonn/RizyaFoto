@@ -17,7 +17,7 @@
 }
 .container .header {
   display: inline-block;
-  width: 30%;
+  width: calc(30% - 40px * 2);
   height: calc(100% - 40px * 2);
   padding: 40px;
   position: absolute;
@@ -36,6 +36,7 @@
 }
 .container .header .album-list {
   margin-top: 30px;
+  height: inherit;
 }
 .container .header .album-list .album {
   font-size: 12px;

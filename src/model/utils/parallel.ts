@@ -27,9 +27,17 @@ export class Parallel {
     }
   }
 
-  start() {
-    for (let iWorker = 0; iWorker < this.numWorkers; iWorker += 1) {
-      this.worker().then()
-    }
+  async start() {
+    return new Promise(resolve => {
+      let finishWorkers = 0
+      for (let iWorker = 0; iWorker < this.numWorkers; iWorker += 1) {
+        this.worker().then(() => {
+          finishWorkers += 1
+          if (finishWorkers === this.numWorkers) {
+            resolve(null)
+          }
+        })
+      }
+    })
   }
 }

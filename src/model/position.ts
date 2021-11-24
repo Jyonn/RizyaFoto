@@ -1,9 +1,9 @@
 export class Position {
-  top: string
-  left: string
+  top: number
+  left: number
 
   constructor(top: number, left: number) {
-    this.top = top + 'px'
-    this.left = left + 'px'
+    this.top = top
+    this.left = left
   }
 }

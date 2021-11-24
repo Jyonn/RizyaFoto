@@ -4,20 +4,24 @@
   height: calc(100% - 2 * 20px);
   width: calc(100% - 2 * 20px);
 }
+.album-container .album-inner-container.in-rendering .foto {
+  cursor: wait;
+}
 .album-container .album-inner-container {
   position: relative;
   overflow-y: scroll;
   display: flex;
   flex-wrap: wrap;
   transition: 0.5s;
+  padding: 10px;
+  box-sizing: border-box;
 }
 .album-container .album-inner-container .foto {
   display: block;
   width: 100%;
   margin: 0 0 20px auto;
   transition: 0.5s;
-}
-.album-container .album-inner-container .foto:last-child {
-  margin-bottom: 0;
+  cursor: pointer;
+  box-sizing: border-box;
 }
 /*# sourceMappingURL=album.component.css.map */

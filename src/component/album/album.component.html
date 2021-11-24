@@ -1,8 +1,8 @@
 <div class="album-container">
-  <div class="album-inner-container full" #albumContainer>
+  <div class="album-inner-container full" #albumContainer [ngClass]="inRendering ? 'in-rendering' : ''">
     <div class="foto img-fit"
-         *ngFor="let foto of fotos"
-         (click)="displayFoto($event, foto)"
+         *ngFor="let foto of album.fotos; let index = index"
+         (click)="displayFoto($event, index)"
          [ngStyle]="{
             'background-image': foto.squareUrl,
             'background-color': foto.color,
