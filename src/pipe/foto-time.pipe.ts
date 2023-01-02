@@ -9,12 +9,12 @@ export class FotoTimePipe implements PipeTransform {
     let dateAndTime = time.split(' ')
     let date = dateAndTime[0].split(':')
     let year = date[0], month = date[1], day = date[2]
-    let intDay = Number.parseInt(day) % 10, intMonth = Number.parseInt(month)
-    if (intDay == 1) {
+    let intDay = Number.parseInt(day), intMonth = Number.parseInt(month), intDayR = intDay % 10
+    if (intDayR == 1 && intDay != 11) {
       day += 'st'
-    } else if (intDay == 2) {
+    } else if (intDayR == 2 && intDay != 12) {
       day += 'nd'
-    } else if (intDay == 3) {
+    } else if (intDayR == 3 && intDay != 13) {
       day += 'rd'
     } else {
       day += 'th'

@@ -27,6 +27,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
   displayComponent?: DisplayComponent
 
   inRendering: boolean
+  fotoPerLine?: number
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -73,9 +74,9 @@ export class AlbumComponent implements OnInit, OnDestroy {
     let size = e.offsetWidth - 20
 
     let baseSize = 240, baseMargin = 20
-    let fotoPerLine = Math.max(Math.floor(size / (baseSize + baseMargin)), 1)
+    this.fotoPerLine = Math.max(Math.floor(size / (baseSize + baseMargin)), 1)
 
-    size = Math.floor(size / fotoPerLine) - baseMargin
+    size = Math.floor(size / this.fotoPerLine) - baseMargin
 
     this.album.fotos.forEach(foto => foto.setFeasibleAlbumSize(size))
     if (!init) {
@@ -162,5 +163,9 @@ export class AlbumComponent implements OnInit, OnDestroy {
     this.displayedIndex = index
 
     this._displayFoto(false)
+  }
+
+  get gridColumn() {
+    return `repeat(${this.fotoPerLine}, 1fr)`
   }
 }

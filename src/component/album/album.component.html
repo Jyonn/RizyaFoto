@@ -1,5 +1,5 @@
 <div class="album-container">
-  <div class="album-inner-container full" #albumContainer [ngClass]="inRendering ? 'in-rendering' : ''">
+  <div class="album-inner-container full" #albumContainer [ngClass]="inRendering ? 'in-rendering' : ''" [ngStyle]="{'grid-template-columns': gridColumn}">
     <div class="foto img-fit"
          *ngFor="let foto of album.fotos; let index = index"
          (click)="displayFoto($event, index)"
