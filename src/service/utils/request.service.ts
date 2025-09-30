@@ -13,7 +13,7 @@ export class RequestService {
     if (urlObject.isLocalAPI && preAnalyse) {
       return o.toPromise()
         .then((r: any) => {
-          if (r.code === 0) {
+          if (r.identifier === 'OK') {
             return r.body;
           } else {
             return Promise.reject(r);
